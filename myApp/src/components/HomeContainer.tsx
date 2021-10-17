@@ -2,9 +2,7 @@ import { IonButton } from '@ionic/react';
 import { useHistory } from 'react-router';
 import './HomeContainer.css';
 
-interface ContainerProps { }
-
-export const HomeContainer: React.FC<ContainerProps> = () => {
+export const HomeContainer: React.FC = () => {
   const history = useHistory();
 
   const clickHandler = () => {

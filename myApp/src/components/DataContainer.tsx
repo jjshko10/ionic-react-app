@@ -9,8 +9,13 @@ import {
 } from "@ionic/react";
 import { useEffect, useState } from "react";
 
+interface ICard {
+  name: string;
+  url: string;
+}
+
 export const DataContainer: React.FC = () => {
-  const [cards, setCards]:any = useState([]);
+  const [cards, setCards] = useState<Array<ICard>>([]);
 
   useEffect(() => {
     const request = async() => {
@@ -33,7 +38,7 @@ export const DataContainer: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        {cards.map((element:any) => {
+        {cards.map((element:ICard) => {
           return (
             <div key={element.url}>
               <span>{element.name}</span>
