@@ -16,12 +16,18 @@ interface ICard {
 
 export const DataContainer: React.FC = () => {
   const [cards, setCards] = useState<Array<ICard>>([]);
+  const [loading, setLoading] = useState<Boolean>(true);
 
   useEffect(() => {
     const request = async() => {
-      let response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20&offset=200');
-      let data = await response.json();
-      setCards(data.results);
+      try {
+        let response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20&offset=200');
+        let data = await response.json();
+        setCards(data.results);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }  
     }
 
     request();
@@ -38,7 +44,7 @@ export const DataContainer: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        {cards.map((element:ICard) => {
+        {loading ? <h1>Loading...</h1> : cards.map((element:ICard) => {
           return (
             <div key={element.url}>
               <span>{element.name}</span>
