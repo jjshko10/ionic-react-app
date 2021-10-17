@@ -7,8 +7,21 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import { useEffect, useState } from "react";
 
 export const DataContainer: React.FC = () => {
+  const [cards, setCards]:any = useState([]);
+
+  useEffect(() => {
+    const request = async() => {
+      let response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20&offset=200');
+      let data = await response.json();
+      setCards(data.results);
+    }
+
+    request();
+  }, []);
+
   return (
     <IonPage>
       <IonHeader>
@@ -20,7 +33,13 @@ export const DataContainer: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <h1>Hello!</h1>
+        {cards.map((element:any) => {
+          return (
+            <div key={element.url}>
+              <span>{element.name}</span>
+            </div>
+          )
+        })}
       </IonContent>
     </IonPage>
   );
